@@ -10,8 +10,18 @@ package model;
  * @author Phamb
  */
 public class Seller {
+
     private String selName, selAddress;
     private int selPhone;
+
+    public Seller() {
+    }
+
+    public Seller(String selName, String selAddress, int selPhone) {
+        this.selName = selName;
+        this.selAddress = selAddress;
+        this.selPhone = selPhone;
+    }
 
     public String getSelName() {
         return selName;
@@ -36,5 +46,5 @@ public class Seller {
     public void setSelPhone(int selPhone) {
         this.selPhone = selPhone;
     }
-    
+
 }

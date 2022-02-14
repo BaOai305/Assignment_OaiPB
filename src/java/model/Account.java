@@ -10,9 +10,22 @@ package model;
  * @author Phamb
  */
 public class Account {
+
     private int phoneNumber;
     private String password, name, address1, address2;
     private boolean typeOfUser;
+
+    public Account() {
+    }
+
+    public Account(int phoneNumber, String password, String name, String address1, String address2, boolean typeOfUser) {
+        this.phoneNumber = phoneNumber;
+        this.password = password;
+        this.name = name;
+        this.address1 = address1;
+        this.address2 = address2;
+        this.typeOfUser = typeOfUser;
+    }
 
     public int getPhoneNumber() {
         return phoneNumber;
@@ -61,7 +74,5 @@ public class Account {
     public void setTypeOfUser(boolean typeOfUser) {
         this.typeOfUser = typeOfUser;
     }
-    
-    
-    
+
 }

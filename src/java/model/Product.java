@@ -10,8 +10,19 @@ package model;
  * @author Phamb
  */
 public class Product {
-    private String proName, proSeller;
+
+    private String proName, proSeller, proImage;
     private int proPrice;
+
+    public Product() {
+    }
+
+    public Product(String proName, String proSeller, String proImage, int proPrice) {
+        this.proName = proName;
+        this.proSeller = proSeller;
+        this.proImage = proImage;
+        this.proPrice = proPrice;
+    }
 
     public String getProName() {
         return proName;
@@ -36,5 +47,13 @@ public class Product {
     public void setProPrice(int proPrice) {
         this.proPrice = proPrice;
     }
-    
+
+    public String getProImage() {
+        return proImage;
+    }
+
+    public void setProImage(String proImage) {
+        this.proImage = proImage;
+    }
+
 }

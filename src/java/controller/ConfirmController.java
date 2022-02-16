@@ -21,6 +21,7 @@ import model.Account;
  */
 public class ConfirmController extends HttpServlet {
 
+
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -32,7 +33,7 @@ public class ConfirmController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("view/login.jsp").forward(request, response);
+        request.getRequestDispatcher("view/home.jsp").forward(request, response);
     }
 
     /**
@@ -65,7 +66,8 @@ public class ConfirmController extends HttpServlet {
             response.getWriter().println("login successful! " + account.getPhoneNumber());
         } else {
             response.getWriter().println("login failed!");
-        }    }
+        }
+    }
 
     /**
      * Returns a short description of the servlet.
@@ -78,3 +80,4 @@ public class ConfirmController extends HttpServlet {
     }// </editor-fold>
 
 }
+

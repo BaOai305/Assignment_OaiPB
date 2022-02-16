@@ -11,28 +11,19 @@ package model;
  */
 public class Account {
 
-    private int phoneNumber;
-    private String password, name, address1, address2;
+    private String password, name, address1, address2, phoneNumber;
     private boolean typeOfUser;
 
     public Account() {
     }
 
-    public Account(int phoneNumber, String password, String name, String address1, String address2, boolean typeOfUser) {
-        this.phoneNumber = phoneNumber;
+    public Account(String password, String name, String address1, String address2, String phoneNumber, boolean typeOfUser) {
         this.password = password;
         this.name = name;
         this.address1 = address1;
         this.address2 = address2;
-        this.typeOfUser = typeOfUser;
-    }
-
-    public int getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(int phoneNumber) {
         this.phoneNumber = phoneNumber;
+        this.typeOfUser = typeOfUser;
     }
 
     public String getPassword() {
@@ -65,6 +56,14 @@ public class Account {
 
     public void setAddress2(String address2) {
         this.address2 = address2;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public boolean isTypeOfUser() {

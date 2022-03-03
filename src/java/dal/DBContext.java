@@ -30,4 +30,20 @@ public class DBContext {
             Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+        //code here
+
+    public Connection getConnection() throws Exception {
+        String user = "sa";
+        String pass = "123456";
+        String url = "jdbc:sqlserver://BAOAI:1433;databaseName=DemoSE1616";
+        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+        return DriverManager.getConnection(url, user, pass);
+    }
+
+    public static void main(String[] args) {
+        try {
+            System.out.println(new DBContext().getConnection());
+        } catch (Exception e) {
+        }
+    }
 }

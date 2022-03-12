@@ -13,7 +13,7 @@
     </head>
     <body>
         <form action="login" method="POST">
-            Username: <input type="text" name="username"/><br/>
+            Username: <input type="text" name="phonenumber"/><br/>
             Password: <input type="password" name="password"/><br/>
             <input type="checkbox" value="remember" name="remember"/> Remember Me! <br/>
             <input type="submit" value="Login"/>

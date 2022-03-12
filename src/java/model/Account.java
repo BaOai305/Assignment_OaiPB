@@ -11,13 +11,12 @@ package model;
  */
 public class Account {
 
-    private String password, name, address1, address2, phoneNumber;
-    private boolean typeOfUser;
+    private String password, name, address1, address2, phoneNumber, typeOfUser;
 
     public Account() {
     }
 
-    public Account(String password, String name, String address1, String address2, String phoneNumber, boolean typeOfUser) {
+    public Account(String password, String name, String address1, String address2, String phoneNumber, String typeOfUser) {
         this.password = password;
         this.name = name;
         this.address1 = address1;
@@ -66,12 +65,14 @@ public class Account {
         this.phoneNumber = phoneNumber;
     }
 
-    public boolean isTypeOfUser() {
+    public String getTypeOfUser() {
         return typeOfUser;
     }
 
-    public void setTypeOfUser(boolean typeOfUser) {
+    public void setTypeOfUser(String typeOfUser) {
         this.typeOfUser = typeOfUser;
     }
+
+
 
 }

@@ -11,17 +11,28 @@ package model;
  */
 public class Product {
 
-    private String proName, proSeller, proImage;
+    private int proId;
+    private String proName, proSeller, proImage, proType;
     private int proPrice;
 
     public Product() {
     }
 
-    public Product(String proName, String proSeller, String proImage, int proPrice) {
+    public Product(int proId, String proName, String proSeller, String proImage, String proType, int proPrice) {
+        this.proId = proId;
         this.proName = proName;
         this.proSeller = proSeller;
         this.proImage = proImage;
+        this.proType = proType;
         this.proPrice = proPrice;
+    }
+
+    public int getProId() {
+        return proId;
+    }
+
+    public void setProId(int proId) {
+        this.proId = proId;
     }
 
     public String getProName() {
@@ -40,20 +51,28 @@ public class Product {
         this.proSeller = proSeller;
     }
 
-    public int getProPrice() {
-        return proPrice;
-    }
-
-    public void setProPrice(int proPrice) {
-        this.proPrice = proPrice;
-    }
-
     public String getProImage() {
         return proImage;
     }
 
     public void setProImage(String proImage) {
         this.proImage = proImage;
+    }
+
+    public String getProType() {
+        return proType;
+    }
+
+    public void setProType(String proType) {
+        this.proType = proType;
+    }
+
+    public int getProPrice() {
+        return proPrice;
+    }
+
+    public void setProPrice(int proPrice) {
+        this.proPrice = proPrice;
     }
 
 }

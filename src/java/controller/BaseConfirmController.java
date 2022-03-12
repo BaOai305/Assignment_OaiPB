@@ -29,21 +29,21 @@ public abstract class BaseConfirmController extends HttpServlet {
             Cookie[] cookies = request.getCookies();
             if (cookies != null)//not login, some cookies
             {
-                String PhoneNumber = null;
-                String Password = null;
+                String phonenumber = null;
+                String password = null;
                 for (Cookie cooky : cookies) {
-                    if (cooky.getName().equals("username")) {
-                        PhoneNumber = cooky.getValue();
+                    if (cooky.getName().equals("phonenumber")) {
+                        phonenumber = cooky.getValue();
                     }
                     if (cooky.getName().equals("password")) {
-                        Password = cooky.getValue();
+                        password = cooky.getValue();
                     }
                 }
-                if (PhoneNumber == null || Password == null) {
+                if (phonenumber == null || password == null) {
                     return false;
                 } else {
                     AccountDBContext db = new AccountDBContext();
-                    account = db.getAccoun(PhoneNumber, Password);
+                    account = db.getAccoun(phonenumber, password);
                     if (account != null) {
                         request.getSession().setAttribute("account", account);
                         return true;
@@ -56,10 +56,7 @@ public abstract class BaseConfirmController extends HttpServlet {
                 return false;
             }
         } else {
-            String url = request.getServletPath();
-            AccountDBContext db = new AccountDBContext();
-            String typeOfUser = db.checkRole(account.getPhoneNumber(), url);
-            return typeOfUser.equals("admin") || typeOfUser.equals("seller") || typeOfUser.equals("user");
+            return true;
         }
     }
 
@@ -80,12 +77,15 @@ public abstract class BaseConfirmController extends HttpServlet {
             processGet(request, response);
         } else {
             response.getWriter().println("access denied!");
-        }    }
+        }
+    }
+
     protected abstract void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException;
 
     protected abstract void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException;
+
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -102,7 +102,8 @@ public abstract class BaseConfirmController extends HttpServlet {
             processPost(request, response);
         } else {
             response.getWriter().println("access denied!");
-        }    }
+        }
+    }
 
     /**
      * Returns a short description of the servlet.

@@ -5,23 +5,43 @@
  */
 package controller;
 
-import dal.AccountDBContext;
+import dal.ProductDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Account;
+import model.Product;
 
 /**
  *
  * @author Phamb
  */
-public class ConfirmController extends HttpServlet {
+public class StudentHomeController extends HttpServlet {
 
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // setAttribute for Product
+        ProductDBContext dbPro = new ProductDBContext();
+        ArrayList<Product> products = dbPro.getProducts();
+        request.setAttribute("products", products);
+        
+        // setAttribute for Seller
+        request.getRequestDispatcher("view/student.jsp").forward(request, response);
+    }
 
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -33,7 +53,7 @@ public class ConfirmController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("view/home.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -47,26 +67,7 @@ public class ConfirmController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String phonenumber = request.getParameter("phonenumber");
-        String password = request.getParameter("password");
-
-        AccountDBContext db = new AccountDBContext();
-        Account account = db.getAccoun(phonenumber, password);
-        if (account != null) {
-            request.getSession().setAttribute("account", account);
-            String remember = request.getParameter("remember");
-            if (remember != null) {
-                Cookie c_user = new Cookie("phonenumber", phonenumber);
-                Cookie c_pass = new Cookie("password", password);
-                c_user.setMaxAge(24 * 3600 * 7);
-                c_pass.setMaxAge(24 * 3600 * 7);
-                response.addCookie(c_user);
-                response.addCookie(c_pass);
-            }
-            response.getWriter().println("login successful! " + account.getTypeOfUser());
-        } else {
-            response.getWriter().println("login failed!");
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -80,4 +81,3 @@ public class ConfirmController extends HttpServlet {
     }// </editor-fold>
 
 }
-

@@ -11,40 +11,49 @@ package model;
  */
 public class Seller {
 
-    private String selName, selAddress;
-    private int selPhone;
+    private int sellerId;
+    private String sellerName, sellerAddress, sellerPhone;
 
     public Seller() {
     }
 
-    public Seller(String selName, String selAddress, int selPhone) {
-        this.selName = selName;
-        this.selAddress = selAddress;
-        this.selPhone = selPhone;
+    public Seller(int sellerId, String sellerName, String sellerAddress, String sellerPhone) {
+        this.sellerId = sellerId;
+        this.sellerName = sellerName;
+        this.sellerAddress = sellerAddress;
+        this.sellerPhone = sellerPhone;
     }
 
-    public String getSelName() {
-        return selName;
+    public int getSellerId() {
+        return sellerId;
     }
 
-    public void setSelName(String selName) {
-        this.selName = selName;
+    public void setSellerId(int sellerId) {
+        this.sellerId = sellerId;
     }
 
-    public String getSelAddress() {
-        return selAddress;
+    public String getSellerName() {
+        return sellerName;
     }
 
-    public void setSelAddress(String selAddress) {
-        this.selAddress = selAddress;
+    public void setSellerName(String sellerName) {
+        this.sellerName = sellerName;
     }
 
-    public int getSelPhone() {
-        return selPhone;
+    public String getSellerAddress() {
+        return sellerAddress;
     }
 
-    public void setSelPhone(int selPhone) {
-        this.selPhone = selPhone;
+    public void setSellerAddress(String sellerAddress) {
+        this.sellerAddress = sellerAddress;
+    }
+
+    public String getSellerPhone() {
+        return sellerPhone;
+    }
+
+    public void setSellerPhone(String sellerPhone) {
+        this.sellerPhone = sellerPhone;
     }
 
 }

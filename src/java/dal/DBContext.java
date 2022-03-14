@@ -35,6 +35,7 @@ public class DBContext {
     public Connection getConnection() throws Exception {
         String user = "sa";
         String pass = "123456";
+        
         String url = "jdbc:sqlserver://BAOAI:1433;databaseName=Assignment";
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         return DriverManager.getConnection(url, user, pass);

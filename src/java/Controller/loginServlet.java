@@ -72,11 +72,8 @@ public class loginServlet extends HttpServlet {
         HttpSession session = request.getSession();
         User user = new User();
         try {
-
             UserDBContext dbUser = new UserDBContext();
             user = dbUser.loginUser(userID, password);
-
-//            user = dal.UserDBContext.login(userID, password);
         } catch (Exception e) {
 
         }

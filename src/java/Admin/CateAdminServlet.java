@@ -56,10 +56,8 @@ public class CateAdminServlet extends HttpServlet {
             dal.Admin.DeleteCate(Integer.parseInt(cast_id));
             response.sendRedirect("CatePages.jsp");
         } else if (action.equals("details")) {
-
             CategoryDBContext dbCate = new CategoryDBContext();
             Category category = dbCate.getCategoryById(Integer.parseInt(cast_id));
-//            Category category = dal.CategoryDBContext.getCategory(Integer.parseInt(cast_id));
             request.setAttribute("cate", category);
             request.getRequestDispatcher("updatecate.jsp").forward(request, response); //at last line     
         }

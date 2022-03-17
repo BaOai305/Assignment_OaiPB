@@ -75,11 +75,8 @@ public class updateCartServlet extends HttpServlet {
             throws ServletException, IOException {
         int quantity = Integer.parseInt(request.getParameter("quantity"));
         int detailID = Integer.parseInt(request.getParameter("detailID"));
-
         OrderDetailDBContext dbOrderDetail = new OrderDetailDBContext();
         dbOrderDetail.updateOrderDetails(detailID, quantity);
-        
-//        dal.OrderDetailDBContext.updateOrderDetails(detailID, quantity);
         response.sendRedirect("./cart.jsp");
         processRequest(request, response);
     }

@@ -59,13 +59,9 @@ public class clearCartServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
         int orderID = Integer.parseInt(request.getParameter("orderID"));
-        
         OrderDetailDBContext dbOrderDetail = new OrderDetailDBContext();
         dbOrderDetail.clearOrderDetailByOrderID(orderID);
-        
-//        dal.OrderDetailDBContext.clearOrderDetailByOrderID(orderID);
         response.sendRedirect("./cart.jsp");
         processRequest(request, response);
         

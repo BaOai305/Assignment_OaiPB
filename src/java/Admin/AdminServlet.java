@@ -60,11 +60,8 @@ public class AdminServlet extends HttpServlet {
             dal.Admin.DeleteProduct(Integer.parseInt(cast_id),Integer.parseInt(status));
            response.sendRedirect("AdminPage.jsp");
         } else if (action.equals("details")) {
-            
             ProductDBContext dbPro = new ProductDBContext();
             Product product = dbPro.getProductByID(Integer.parseInt(cast_id));
-            
-//            Product prodcut = dal.ProductDBContext.getProductByID(Integer.parseInt(cast_id));
             request.setAttribute("product", product);
             request.getRequestDispatcher("updateProduct.jsp").forward(request, response); //at last line     
         }

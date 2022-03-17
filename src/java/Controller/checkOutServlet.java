@@ -74,25 +74,17 @@ public class checkOutServlet extends HttpServlet {
         int quantity = 0;
         boolean check = false;
         for (OrderDetail orderDetail : details) {
-
             ProductDBContext dbPro = new ProductDBContext();
             Product products = dbPro.getProductByID(orderDetail.getProductID());
-
-//            Product products = dal.ProductDBContext.getProductByID(orderDetail.getProductID());
             if (orderDetail.getProductID() == products.getProductID()) {
                 quantity = products.getQuantity() - orderDetail.getQuantity();
                 if (quantity < 0) {
                     check = true;
                     break;
                 } else {
-                    
                     dbPro.updateQuantityT(orderID, quantity);
-                    
-//                    dal.ProductDBContext.updateQuantity(products.getProductID(), quantity);
                 }
-
             }
-
         }
         if (check) {
             response.sendRedirect("./cart.jsp");

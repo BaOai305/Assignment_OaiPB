@@ -11,7 +11,6 @@ import dal.ProductDBContext;
 import model.OrderDetail;
 import model.Product;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -73,8 +72,6 @@ public class addToCartServlet extends HttpServlet {
 
         ProductDBContext dbPro = new ProductDBContext();
         Product p = dbPro.getProductByID(productID);
-
-//        Product p = dal.ProductDBContext.getProductByID(productID);
         
         HttpSession session = request.getSession();
         int currentUserID = 0;
@@ -86,14 +83,9 @@ public class addToCartServlet extends HttpServlet {
         
         OrderDBContext dbOrder = new OrderDBContext();
         int cartID = dbOrder.getOrderIDByUserID(currentUserID);
-//        int cartID = dal.OrderDBContext.getOrderIDByUserID(currentUserID);
         if (cartID == 0) {
-
             dbOrder.addNewOrder(currentUserID);
-
-//            dal.OrderDBContext.addNewOrder(currentUserID);
             cartID = dbOrder.getOrderIDByUserID(currentUserID);
-//            cartID = dal.OrderDBContext.getOrderIDByUserID(currentUserID);
         }
         OrderDetail detail = new OrderDetail();
         detail.setOrderID(cartID);
@@ -103,8 +95,6 @@ public class addToCartServlet extends HttpServlet {
 
         OrderDetailDBContext dbOrderDetail = new OrderDetailDBContext();
         dbOrderDetail.addOrderDetail(detail);
-
-//        dal.OrderDetailDBContext.addOrderDetail(detail);
         response.sendRedirect("./cart.jsp");
         processRequest(request, response);
     }

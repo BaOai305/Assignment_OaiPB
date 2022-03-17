@@ -1,0 +1,137 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Controller;
+
+import dal.OrderDBContext;
+import dal.OrderDetailDBContext;
+import dal.ProductDBContext;
+import model.OrderDetail;
+import model.Product;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+/**
+ *
+ * @author Phamb
+ */
+@WebServlet(name = "checkOutServlet", urlPatterns = {"/checkOutServlet"})
+public class checkOutServlet extends HttpServlet {
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet checkOutServlet</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet checkOutServlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        int orderID = Integer.parseInt(request.getParameter("orderID"));
+        float totalPrice = Float.parseFloat(request.getParameter("totalPrice"));
+
+        OrderDetailDBContext dbOrderDetail = new OrderDetailDBContext();
+        ArrayList<OrderDetail> details = dbOrderDetail.getOrderDetailByOrderID(orderID);
+
+        int quantity = 0;
+        boolean check = false;
+        for (OrderDetail orderDetail : details) {
+
+            ProductDBContext dbPro = new ProductDBContext();
+            Product products = dbPro.getProductByID(orderDetail.getProductID());
+
+//            Product products = dal.ProductDBContext.getProductByID(orderDetail.getProductID());
+            if (orderDetail.getProductID() == products.getProductID()) {
+                quantity = products.getQuantity() - orderDetail.getQuantity();
+                if (quantity < 0) {
+                    check = true;
+                    break;
+                } else {
+                    
+                    dbPro.updateQuantityT(orderID, quantity);
+                    
+//                    dal.ProductDBContext.updateQuantity(products.getProductID(), quantity);
+                }
+
+            }
+
+        }
+        if (check) {
+            response.sendRedirect("./cart.jsp");
+            processRequest(request, response);
+        } else {
+
+            OrderDBContext dbOrder = new OrderDBContext();
+            dbOrder.checkOut(orderID, totalPrice);
+
+            HttpSession session = request.getSession();
+            sendmail.SendMail.sendmail(session.getAttribute("email").toString());
+            response.sendRedirect("./cart.jsp");
+            processRequest(request, response);
+        }
+
+    }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
+}

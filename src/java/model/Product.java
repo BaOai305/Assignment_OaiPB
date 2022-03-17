@@ -10,69 +10,107 @@ package model;
  * @author Phamb
  */
 public class Product {
-
-    private int proId;
-    private String proName, proSeller, proImage, proType;
-    private int proPrice;
+    int productID, quantity, categoryID,status,user_post;
+    String productName, image, importDate, usingDate;
+    float price;
 
     public Product() {
     }
 
-    public Product(int proId, String proName, String proSeller, String proImage, String proType, int proPrice) {
-        this.proId = proId;
-        this.proName = proName;
-        this.proSeller = proSeller;
-        this.proImage = proImage;
-        this.proType = proType;
-        this.proPrice = proPrice;
+    public Product(int productID, int quantity, int categoryID, int status, int user_post, String productName, String image, String importDate, String usingDate, float price) {
+        this.productID = productID;
+        this.quantity = quantity;
+        this.categoryID = categoryID;
+        this.status = status;
+        this.user_post = user_post;
+        this.productName = productName;
+        this.image = image;
+        this.importDate = importDate;
+        this.usingDate = usingDate;
+        this.price = price;
     }
 
-    public int getProId() {
-        return proId;
+    public int getProductID() {
+        return productID;
     }
 
-    public void setProId(int proId) {
-        this.proId = proId;
+    public void setProductID(int productID) {
+        this.productID = productID;
     }
 
-    public String getProName() {
-        return proName;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setProName(String proName) {
-        this.proName = proName;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
-    public String getProSeller() {
-        return proSeller;
+    public int getCategoryID() {
+        return categoryID;
     }
 
-    public void setProSeller(String proSeller) {
-        this.proSeller = proSeller;
+    public void setCategoryID(int categoryID) {
+        this.categoryID = categoryID;
     }
 
-    public String getProImage() {
-        return proImage;
+    public int getStatus() {
+        return status;
     }
 
-    public void setProImage(String proImage) {
-        this.proImage = proImage;
+    public void setStatus(int status) {
+        this.status = status;
     }
 
-    public String getProType() {
-        return proType;
+    public int getUser_post() {
+        return user_post;
     }
 
-    public void setProType(String proType) {
-        this.proType = proType;
+    public void setUser_post(int user_post) {
+        this.user_post = user_post;
     }
 
-    public int getProPrice() {
-        return proPrice;
+    public String getProductName() {
+        return productName;
     }
 
-    public void setProPrice(int proPrice) {
-        this.proPrice = proPrice;
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getImportDate() {
+        return importDate;
+    }
+
+    public void setImportDate(String importDate) {
+        this.importDate = importDate;
+    }
+
+    public String getUsingDate() {
+        return usingDate;
+    }
+
+    public void setUsingDate(String usingDate) {
+        this.usingDate = usingDate;
+    }
+
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
+    }
+
+  
+    
+    
 }

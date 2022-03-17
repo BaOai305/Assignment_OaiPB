@@ -3,23 +3,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package Controller;
 
-import dal.ProductDBContext;
+import dal.UserDBContext;
+import model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Product;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Phamb
  */
-public class StudentHomeController extends HttpServlet {
+@WebServlet(name = "loginServlet", urlPatterns = {"/loginServlet"})
+public class loginServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,13 +36,8 @@ public class StudentHomeController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // setAttribute for Product
-        ProductDBContext dbPro = new ProductDBContext();
-        ArrayList<Product> products = dbPro.getProducts();
-        request.setAttribute("products", products);
-        
-        // setAttribute for Seller
-        request.getRequestDispatcher("view/student.jsp").forward(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -67,6 +66,41 @@ public class StudentHomeController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        String userID = request.getParameter("Email").trim();
+        String password = request.getParameter("password").trim();
+        HttpSession session = request.getSession();
+        User user = new User();
+        try {
+
+            UserDBContext dbUser = new UserDBContext();
+            user = dbUser.loginUser(userID, password);
+
+//            user = dal.UserDBContext.login(userID, password);
+        } catch (Exception e) {
+
+        }
+        System.out.println(user);
+        if (user != null) {
+            if (user.getRoleID() == 1) {
+
+                session.removeAttribute("loginError");
+                session.setAttribute("currentUserID", user.getUserID());
+                session.setAttribute("email", user.getMail());
+                response.sendRedirect("./index.jsp");
+            } else {
+
+                session.removeAttribute("loginError");
+                session.setAttribute("currentUserID", user.getUserID());
+                response.sendRedirect("./sellerpage.jsp");
+            }
+
+        } else {
+
+            session.setAttribute("loginError", "UserID or password is incorrect");
+            response.sendRedirect("./login.jsp");
+
+        }
         processRequest(request, response);
     }
 

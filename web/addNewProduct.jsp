@@ -2,6 +2,8 @@
 <%@page import="model.Category"%>
 <%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -15,7 +17,7 @@
             <main>
                 <h1>Add New</h1>
                 <div class="container-fluid px-4">
-                    <form action="AdminServlet" method="post">
+                    <form action="addProduct" method="post">
 
                         <div class="form-row">
                             <div class="form-group">
@@ -36,15 +38,9 @@
                             <input name="quantity" type="number" class="form-control" id="inputAddress2" >
                             <label for="inputAddress2">Category</label>
                             <select class="form-control" name="cate">
-                                <%
-                                    CategoryDBContext dbCate = new CategoryDBContext();
-                                    ArrayList<Category> arrayList = dbCate.getCategorys();
-                                    for (Category category : arrayList) {
-                                %>
-                                <option value="<%=category.getCategoryID()%>"><%=category.getCategoryName()%></option>
-                                <%
-                                    }
-                                %>
+                                <c:forEach items="${requestScope.cateList}" var="cate" >
+                                    <option value="${cate.getCategoryID()}">${cate.getCategoryName()}</option>
+                                </c:forEach>
                             </select>
                             <label for="inputAddress2">usingDate</label>
                             <input name="usingDate" type="number" class="form-control" id="inputAddress2" >
@@ -56,13 +52,6 @@
 
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-    <script src="js/scripts.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
 
-    <script type="text/javascript">
-    </script>
 </body>
 </html>

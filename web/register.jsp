@@ -3,16 +3,14 @@
     Created on : Mar 7, 2022, 4:03:46 PM
     Author     : Phamb
 --%>
-
-<%@page import="dal.RoleDBContext"%>
-<%@page import="model.Role"%>
-<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Đăng ký tài khoản</title>
 
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
 
@@ -26,7 +24,8 @@
                             <div class="card-body p-5 text-center">
 
                                 <form action="registerServlet" method="POST">
-                                    <h3 class="mb-5">Register</h3>
+                                    <h1 class="mb-5">FU Food</h1>
+                                    <h3 class="mb-5">Đăng ký tài khoản</h3>
 
                                     <div class="form-outline mb-4">
                                         <input required="" name="fullName" id="typeEmailX-2" class="form-control form-control-lg" placeholder="Full name"/>
@@ -53,18 +52,9 @@
                                     </div>
                                     <div class="form-outline mb-4">
                                         <select class="form-control" name="role">
-                                            <%
-
-                                                RoleDBContext dbRole = new RoleDBContext();
-                                                ArrayList<Role> arrayList = dbRole.getRoles();
-
-//                                                ArrayList<Role> arrayList = dal.RoleDBContext.getAllRole();
-                                                for (Role role : arrayList) {
-                                            %>
-                                            <option value="<%=role.getRoleID()%>"><%=role.getRoleName()%></option>
-                                            <%
-                                                }
-                                            %>
+                                            <c:forEach items="${requestScope.roleList}" var="role" >
+                                                <option value="${role.getRoleID()}">${role.getRoleName()}</option>
+                                            </c:forEach>
                                         </select>
                                     </div>
 

@@ -5,25 +5,21 @@
  */
 package Controller;
 
-import dal.OrderDBContext;
-import dal.OrderDetailDBContext;
-import dal.ProductDBContext;
-import model.OrderDetail;
-import model.Product;
+import dal.ProductDBContext2;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import model.Product2;
 
 /**
  *
  * @author Phamb
  */
-@WebServlet(name = "addToCartServlet", urlPatterns = {"/addToCartServlet"})
-public class addToCartServlet extends HttpServlet {
+public class sellerController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,6 +33,11 @@ public class addToCartServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        int userId = Integer.parseInt(request.getSession().getAttribute("currentUserID").toString());
+        ProductDBContext2 dbPro = new ProductDBContext2();
+        ArrayList<Product2> proList = dbPro.getAllProductPost(userId);
+        request.setAttribute("proList", proList);
+        request.getRequestDispatcher("./sellerpage.jsp").forward(request, response);
 
     }
 
@@ -66,36 +67,6 @@ public class addToCartServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
-        int productID = Integer.parseInt(request.getParameter("productID"));
-        int quantity = Integer.parseInt(request.getParameter("quantity"));
-
-        ProductDBContext dbPro = new ProductDBContext();
-        Product p = dbPro.getProductByID(productID);
-        
-        HttpSession session = request.getSession();
-        int currentUserID = 0;
-        try {
-            currentUserID = Integer.parseInt(session.getAttribute("currentUserID").toString());
-        } catch (Exception e) {
-
-        }
-        
-        OrderDBContext dbOrder = new OrderDBContext();
-        int cartID = dbOrder.getOrderIDByUserID(currentUserID);
-        if (cartID == 0) {
-            dbOrder.addNewOrder(currentUserID);
-            cartID = dbOrder.getOrderIDByUserID(currentUserID);
-        }
-        OrderDetail detail = new OrderDetail();
-        detail.setOrderID(cartID);
-        detail.setPrice(p.getPrice());
-        detail.setProductID(productID);
-        detail.setQuantity(quantity);
-
-        OrderDetailDBContext dbOrderDetail = new OrderDetailDBContext();
-        dbOrderDetail.addOrderDetail(detail);
-        response.sendRedirect("./cart.jsp");
         processRequest(request, response);
     }
 

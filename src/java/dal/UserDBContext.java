@@ -20,32 +20,6 @@ import java.util.logging.Logger;
  */
 public class UserDBContext extends DBContext {
 
-    public static ArrayList<User> getAllUser() {
-        ArrayList<User> list = new ArrayList<>();
-        try {
-            Connection conn = dal.DB.getConnection();
-            PreparedStatement st = conn.prepareStatement("select * from tblUsers");
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-                User u = new User();
-                u.setUserID(rs.getInt("userID"));
-                u.setFullName(rs.getString("fullName"));
-                u.setPassword(rs.getString("password"));
-                u.setRoleID(rs.getInt("roleID"));
-                u.setAddress(rs.getString("address"));
-                u.setBirthday(rs.getString("birthday"));
-                u.setPhone(rs.getString("phone"));
-                u.setMail(rs.getString("mail"));
-                u.setStatus(rs.getInt("status"));
-                list.add(u);
-            }
-            conn.close();
-        } catch (SQLException e) {
-            System.out.println("loi get User :" + e);
-        }
-        return list;
-    }
-
     public ArrayList<User> getUsers() {
         ArrayList<User> users = new ArrayList<>();
         try {
@@ -79,7 +53,7 @@ public class UserDBContext extends DBContext {
         }
         return users;
     }
-    
+
     public User loginUser(String Email, String password) {
         User user = new User();
         UserDBContext dbUser = new UserDBContext();
@@ -106,7 +80,6 @@ public class UserDBContext extends DBContext {
         }
         return null;
     }
-
 
     public void addNewUser(User u) {
         try {
@@ -141,5 +114,23 @@ public class UserDBContext extends DBContext {
         } catch (SQLException ex) {
             Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public String getNameOfUser(int userPostId) {
+        String name = "";
+        try {
+            String sql = "SELECT [fullName]\n"
+                    + "  FROM [tblSeller]\n"
+                    + "  WHERE [userID] = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, userPostId);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                name = rs.getString("fullName");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return name;
     }
 }

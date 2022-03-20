@@ -1,14 +1,9 @@
 <%-- 
-    Document   : index
-    Created on : Mar 14, 2022, 6:49:05 PM
-    Author     : Admin
+    Document   : student
+    Created on : Mar 20, 2022, 10:24:14 PM
+    Author     : Phamb
 --%>
 
-<%@page import="model.Product2"%>
-<%@page import="dal.ProductDBContext2"%>
-<%@page import="dal.ProductDBContext"%>
-<%@page import="model.Product"%>
-<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
@@ -21,20 +16,24 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Sản Phẩm Đang Bán</h1>
+        <h1>Food Page</h1>
         <div class="container"> 
             <div class="row">
                 <c:forEach items="${requestScope.proList}" var="pro" >
                     <div class="col-sm-4 p-2">
-                        <img src="${pro.getImage()}" width="60%"/></br>  
-                        Tên: ${pro.getProductName()}</br>
-                        Giá bán: ${pro.getPrice()}</br>
-                        Số lượng còn lại : ${pro.getQuantity()}
+                        <form action="addToCart" method="POST">
+                            <input name="productID" value="${pro.getProductID()}" hidden/>
+                            <img src="${pro.getImage()}" width="60%"/></br>  
+                            Tên : ${pro.getProductName()}</br>
+                            Nhà bán : ${pro.getUser_post()}</br>
+                            Giá : ${pro.getPrice()}</br>
+                            Quantity : <input type="number" class="form-control" name="quantity" style="width: 80px"/></br>
+                            <button type="submit" class="btn btn-sm btn-info">Add To Cart</button>
+                        </form>
                     </div>
-                </c:forEach>
+                </c:forEach> 
             </div>
         </div>
-        <a href="addProduct">Thêm sản phẩm mới</a>
 
     </body>
 </html>

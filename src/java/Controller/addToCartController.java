@@ -3,25 +3,26 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Admin;
+package Controller;
 
-import dal.CategoryDBContext;
-import model.Category;
-import model.Product;
+import dal.OrderDBContext;
+import dal.OrderDetailDBContext;
+import dal.ProductDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.OrderDetail;
+import model.Product;
 
 /**
  *
- * @author Admin
+ * @author Phamb
  */
-@WebServlet(name = "CateAdminServlet", urlPatterns = {"/CateAdminServlet"})
-public class CateAdminServlet extends HttpServlet {
+public class addToCartController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,6 +36,33 @@ public class CateAdminServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        int productID = Integer.parseInt(request.getParameter("productID"));
+        int quantity = Integer.parseInt(request.getParameter("quantity"));
+
+        ProductDBContext dbPro = new ProductDBContext();
+        Product p = dbPro.getProductByID(productID);
+        HttpSession session = request.getSession();
+        int currentUserID = 0;
+        try {
+            currentUserID = Integer.parseInt(session.getAttribute("currentUserID").toString());
+        } catch (NumberFormatException e) {
+        }
+        OrderDBContext dbOrder = new OrderDBContext();
+        int cartID = dbOrder.getOrderIDByUserID(currentUserID);
+        if (cartID == 0) {
+            dbOrder.addNewOrder(currentUserID);
+            cartID = dbOrder.getOrderIDByUserID(currentUserID);
+        }
+        OrderDetail detail = new OrderDetail();
+        detail.setOrderID(cartID);
+        detail.setPrice(p.getPrice());
+        detail.setProductID(productID);
+        detail.setQuantity(quantity);
+
+        OrderDetailDBContext dbOrderDetail = new OrderDetailDBContext();
+        dbOrderDetail.addOrderDetail(detail);
+
+        response.sendRedirect("cart");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -50,17 +78,6 @@ public class CateAdminServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        String action = request.getParameter("action");
-        String cast_id = request.getParameter("mid");
-        if (action.equals("delete")) {
-            dal.Admin.DeleteCate(Integer.parseInt(cast_id));
-            response.sendRedirect("CatePages.jsp");
-        } else if (action.equals("details")) {
-            CategoryDBContext dbCate = new CategoryDBContext();
-            Category category = dbCate.getCategoryById(Integer.parseInt(cast_id));
-            request.setAttribute("cate", category);
-            request.getRequestDispatcher("updatecate.jsp").forward(request, response); //at last line     
-        }
     }
 
     /**
@@ -75,20 +92,6 @@ public class CateAdminServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("utf-8");
-        String btn_add = request.getParameter("Add");
-        String btn_update = request.getParameter("update");
-        String name = request.getParameter("name");
-        if (btn_add != null) {
-            Category category = new Category(0, name);
-            dal.Admin.addCate(category);
-            response.sendRedirect("CatePages.jsp");
-        } else if (btn_update != null) {
-            String id = request.getParameter("id");
-            dal.Admin.updateCate(Integer.parseInt(id), name);
-            response.sendRedirect("CatePages.jsp");
-        }
     }
 
     /**

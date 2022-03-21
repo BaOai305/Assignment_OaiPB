@@ -23,7 +23,7 @@
                         <div class="card shadow-2-strong" style="border-radius: 1rem;">
                             <div class="card-body p-5 text-center">
 
-                                <form action="registerServlet" method="POST">
+                                <form action="register" method="POST">
                                     <h1 class="mb-5">FU Food</h1>
                                     <h3 class="mb-5">Đăng ký tài khoản</h3>
 

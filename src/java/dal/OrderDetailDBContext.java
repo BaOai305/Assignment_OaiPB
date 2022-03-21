@@ -124,7 +124,7 @@ public class OrderDetailDBContext extends DBContext {
     public void updateOrderDetails(int detailID, int quantity) {
         try {
             String sql = "UPDATE [tblOrderDetail]\n"
-                    + "   SET [quantity] = <quantity, int,>\n"
+                    + "   SET [quantity] = ?\n"
                     + " WHERE [detailID] = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, quantity);

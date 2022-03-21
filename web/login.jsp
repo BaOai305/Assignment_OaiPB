@@ -1,42 +1,64 @@
 <%-- 
     Document   : login
-    Created on : Mar 15, 2022, 12:10:02 PM
-    Author     : Admin
+    Created on : Mar 21, 2022, 10:29:15 PM
+    Author     : Phamb
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <title>FU Food</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <title>FU - Hòa Lạc Food</title>
     </head>
+    <style>
+        .divider:after,
+        .divider:before {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #eee;
+        }
+    </style>
     <body>
+        <section class="vh-100">
+            <div class="container py-5 h-100">
+                <div class="row d-flex align-items-center justify-content-center h-100">
+                    <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+                        <h3>FU - Hòa Lạc</h3>
+                        <h4>Ở đây có mọi thứ đồ ăn cho sinh viên</h4> <br>
+                        <form action="login" method="post" class="col-lg-9 float-right">
+                            <!-- Email input -->
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="exampleInputPassword1">Email address</label>
+                                <input type="email" name="Email" class="form-control form-control-lg"/>
+                            </div>
+                            <!-- Password input -->
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="exampleInputPassword1">Password</label>
+                                <input type="password" name="password" class="form-control form-control-lg" />
+                            </div>
 
-        <div class="container">
-            <h1 class="">FU FOOD</h1>
-            <h3>Ở Đây có mọi thứ đồ ăn cho sinh viên</h3>
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQoPSHYfoASMsbeyzBDI-qdwqVUMTW9K8T8eYuYxMQrXxtV3JRjquOeizm90gSHYHQiPk&usqp=CAU"/>
-            <form action="login" method="post" class="col-lg-8 float-right">
-
-                <h2 class="float">Login</h2>
-                <div class="form-group">
-                    <label for="exampleInputPassword1" class="text-uppercase">Email</label>
-                    <input name="Email" type="Email" class="form-control" placeholder="">
+                            <div class="d-flex justify-content-around align-items-center mb-4">
+                                <!-- Checkbox -->
+                                <div class="form-check">
+                                    <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        value="remember"
+                                        name="remember"
+                                        />
+                                    <label class="form-check-label"> Remember me </label>
+                                </div>
+                                <a href="./register">Register</a>
+                            </div>
+                            <!-- Submit button -->
+                            <button type="submit" class="btn btn-info float-right form-control">Login</button>
+                        </form>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword1" class="text-uppercase">Password</label>
-                    <input name="password" type="password" class="form-control" placeholder="">
-                </div>
-                <input type="checkbox" value="remember" name="remember"/> Remember Me! <br/>
-                <button type="submit" class="btn btn-info float-right form-control">Login</button>
-            </form>
-            <h4><a href="register">Register</a></h4>
-        </div>
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+            </div>
+        </section>
     </body>
 </html>

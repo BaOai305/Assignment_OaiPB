@@ -27,10 +27,7 @@
         <%
             ProductDBContext dbPro = new ProductDBContext();
             String currentUserID = "";
-            try {
-                currentUserID = session.getAttribute("currentUserID").toString();
-            } catch (Exception e) {
-            }
+            currentUserID = session.getAttribute("currentUserID").toString();
             User currentUser = new User();
             if (!currentUserID.isEmpty()) {
                 UserDBContext dbUser = new UserDBContext();
@@ -51,6 +48,7 @@
                     <div class="col-lg-12">
                         <div class="shoping__cart__table">
                             <table class="table">
+                                <a href="student">Trang chủ</a>
                                 <thead>
                                     <tr>
                                         <th class="shoping__product">Products</th>
@@ -60,17 +58,13 @@
                                         <th></th>
                                     </tr>
                                 </thead>
-
                                 <tbody>
-
                                     <%
                                         for (OrderDetail detail : cartDetail) {
-
                                             int productId = detail.getProductID();
                                             Product p = dbPro.getProductByID(productId);
-
                                     %>
-                                <form action="updateCartServlet" method="POST">
+                                <form action="updateCart" method="POST">
                                     <tr>
                                         <td class="shoping__cart__item">
                                             <img src="<%= p.getImage()%>" alt="" style="width: 100px; height: 100px">
@@ -81,9 +75,7 @@
                                         </td>
                                         <td class="shoping__cart__quantity">
                                             <div class="quantity">
-
                                                 <div class="pro-qty">
-
                                                     <input type="text" name="quantity" value="<%= detail.getQuantity()%>">
                                                 </div>
                                         </td>
@@ -94,7 +86,7 @@
                                             %>đ
                                         </td>
                                         <td class="shoping__cart__item__close">
-                                            <a class="btn btn-danger" href="./deleteCart?detailID=<%=detail.getDetailID()%>"><span class="icon_close"></span>Delete</a>
+                                            <a class="btn btn-danger" href="./deleteCart?detailID=<%=detail.getDetailID()%>"><span class="icon_close"></span>Xóa</a>
                                         </td>
                                         <td class="shoping__cart__item__close">
                                             <input style="display: none" type="text" name="detailID" value="<%= detail.getDetailID()%>">
@@ -116,7 +108,7 @@
                     <div class="col-lg-12">
                         <div class="shoping__cart__btns">
                             <a style="display: none" href="" class="primary-btn cart-btn">UPDATE QUANTITY</a>
-                            <a href="./clearCart?orderID=<%= cartID%>" class="primary-btn cart-btn cart-btn-right">CLEAR CART</a>
+                            <a href="./clearCart?orderID=<%= cartID%>" class="primary-btn cart-btn cart-btn-right">Xóa đơn hàng</a>
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -126,10 +118,10 @@
                         <div class="shoping__checkout">
                             <h5>Cart Total</h5>
                             <ul>
-                                <li>Subtotal <span>$<%= totalPrice%></span></li>
-                                <li>Total <span>$<%= totalPrice%></span></li>
+                                <li>Subtotal <span><%= totalPrice%>đ</span></li>
+                                <li>Total <span><%= totalPrice%>đ</span></li>
                             </ul>
-                            <a href="./checkOut?orderID=<%= cartID%>&totalPrice=<%= totalPrice%>" class="primary-btn">CHECK OUT</a>
+                            <a href="./checkOut?orderID=<%= cartID%>&totalPrice=<%= totalPrice%>" class="primary-btn">Thanh toán</a>
                         </div>
                     </div>
                 </div>

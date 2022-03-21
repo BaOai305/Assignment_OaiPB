@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Role;
+import model.Seller;
 import model.User;
 
 /**
@@ -62,6 +63,14 @@ public class registerController extends HttpServlet {
 
         UserDBContext dbUser = new UserDBContext();
         dbUser.addNewUser(u);
+
+        if (role.equals("2")) {
+            Seller seller = new Seller();
+            int sellerId = dbUser.getUserId(mail, password);
+            seller.setSellerId(sellerId);
+            seller.setSellerName(fullName);
+            dbUser.addNewSeller(seller);
+        }
 
         response.sendRedirect("login");
     }

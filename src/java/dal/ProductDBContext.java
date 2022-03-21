@@ -108,6 +108,43 @@ public class ProductDBContext extends DBContext {
         return p;
     }
 
+    public void updateProduct(Product product) {
+        try {
+            String sql = "UPDATE [tblProduct]\n"
+                    + "   SET [productName] = ?\n"
+                    + "      ,[image] = ?\n"
+                    + "      ,[price] = ?\n"
+                    + "      ,[quantity] = ?\n"
+                    + "      ,[categoryID] = ?\n"
+                    + "      ,[usingDate] = ?\n"
+                    + " WHERE [productID] = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(7, product.getProductID());
+            stm.setString(1, product.getProductName());
+            stm.setString(2, product.getImage());
+            stm.setFloat(3, product.getPrice());
+            stm.setInt(4, product.getQuantity());
+            stm.setInt(5, product.getCategoryID());
+            stm.setString(6, product.getUsingDate());
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+    }
+
+    public void deleteProduct(int proId) {
+        try {
+            String sql = "DELETE FROM [tblProduct]\n"
+                    + "      WHERE [productID] = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, proId);
+            stm.executeUpdate();
+        } catch (SQLException e) {
+            Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
+
     public void addProduct(Product product) {
         try {
             String sql = "INSERT INTO [dbo].[tblProduct]\n"
@@ -146,7 +183,7 @@ public class ProductDBContext extends DBContext {
         }
     }
 
-    public void updateQuantityT(int ID, int quantity) {
+    public void updateQuantity(int ID, int quantity) {
         try {
             String sql = "UPDATE [tblProduct]\n"
                     + "   SET[quantity] = ?\n"
@@ -159,4 +196,5 @@ public class ProductDBContext extends DBContext {
             Logger.getLogger(OrderDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
 }

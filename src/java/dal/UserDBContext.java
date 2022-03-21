@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Seller;
 
 /**
  *
@@ -83,7 +84,7 @@ public class UserDBContext extends DBContext {
 
     public void addNewUser(User u) {
         try {
-            String sql = "INSERT INTO [dbo].[tblUsers]\n"
+            String sql = "INSERT INTO [tblUsers]\n"
                     + "           ([fullName]\n"
                     + "           ,[password]\n"
                     + "           ,[roleID]\n"
@@ -132,5 +133,42 @@ public class UserDBContext extends DBContext {
             Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return name;
+    }
+
+    public int getUserId(String email, String password) {
+        int userId = 0;
+        try {
+            String sql = "SELECT [userID]\n"
+                    + "  FROM [tblUsers]\n"
+                    + "  WHERE [mail] = ? \n"
+                    + "  AND [password] = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, email);
+            stm.setString(2, password);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                userId = rs.getInt("userID");
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return userId;
+    }
+
+    public void addNewSeller(Seller seller) {
+        try {
+            String sql = "INSERT INTO [tblSeller]\n"
+                    + "           ([userID]\n"
+                    + "           ,[fullName])\n"
+                    + "     VALUES\n"
+                    + "           (?\n"
+                    + "           ,?)";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, seller.getSellerId());
+            stm.setString(2, seller.getSellerName());
+            stm.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

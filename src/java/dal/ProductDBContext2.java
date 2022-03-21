@@ -176,7 +176,7 @@ public class ProductDBContext2 extends DBContext {
         }
     }
 
-    public void updateQuantityT(int ID, int quantity) {
+    public void updateQuantity(int ID, int quantity) {
         try {
             String sql = "UPDATE [tblProduct]\n"
                     + "   SET[quantity] = ?\n"

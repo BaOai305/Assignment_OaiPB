@@ -45,18 +45,16 @@ public class checkOutController extends HttpServlet {
                     check = true;
                     break;
                 } else {
-                    dbPro.updateQuantityT(orderID, quantity);
+                    dbPro.updateQuantity(orderID, quantity);
                 }
             }
         }
         if (check) {
-            response.sendRedirect("./cart.jsp");
+            response.sendRedirect("cart");
         } else {
             OrderDBContext dbOrder = new OrderDBContext();
             dbOrder.checkOut(orderID, totalPrice);
-            HttpSession session = request.getSession();
-            sendmail.SendMail.sendmail(session.getAttribute("email").toString());
-            response.sendRedirect("./cart.jsp");
+            response.sendRedirect("student");
         }
     }
 

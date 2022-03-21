@@ -14,12 +14,37 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Admin;
 
 /**
  *
  * @author AdminDBContext
  */
 public class AdminDBContext extends DBContext {
+
+    public Admin getAdmin(String email, String password) {
+        try {
+            String sql = "SELECT [id]\n"
+                    + "      ,[email]\n"
+                    + "      ,[password]\n"
+                    + "  FROM [tblAdmin]\n"
+                    + "  WHERE [email] = ?\n"
+                    + "  AND [password] = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, email);
+            stm.setString(2, password);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                Admin admin = new Admin();
+                admin.setAdminEmail(email);
+                admin.setAdminPass(password);
+                return admin;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 
     public ArrayList<Product> getProductsAdmin() {
         ArrayList<Product> products = new ArrayList<>();

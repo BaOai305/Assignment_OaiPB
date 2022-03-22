@@ -25,8 +25,6 @@ public class editUserController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int userId = Integer.parseInt(request.getParameter("userId"));
-        String key = request.getParameter("key");
-        request.setAttribute("key", key);
         UserDBContext dbUser = new UserDBContext();
         User user = dbUser.getUserByID(userId);
         request.setAttribute("user", user);
@@ -64,7 +62,11 @@ public class editUserController extends HttpServlet {
                 response.sendRedirect("adminSeller");
             }
         } else {
-            response.sendRedirect("student");
+            if (userRole == 1) {
+                response.sendRedirect("student");
+            } else {
+                response.sendRedirect("seller");
+            }
         }
 
     }

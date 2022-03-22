@@ -6,6 +6,7 @@
 package Controller;
 
 import dal.ProductDBContext2;
+import dal.UserDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Product2;
+import model.User;
 
 /**
  *
@@ -32,8 +34,11 @@ public class sellerController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
         int userId = Integer.parseInt(request.getSession().getAttribute("currentUserID").toString());
+        UserDBContext dbUser = new UserDBContext();
+        User user = dbUser.getUserByID(userId);
+        request.setAttribute("currentUser", user);
+
         ProductDBContext2 dbPro = new ProductDBContext2();
         ArrayList<Product2> proList = dbPro.getAllProductPost(userId);
         request.setAttribute("proList", proList);

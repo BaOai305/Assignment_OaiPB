@@ -60,4 +60,30 @@ public class CategoryDBContext extends DBContext {
         }
         return null;
     }
+
+    public void deleteCate(int cateId) {
+        try {
+            String sql = "DELETE FROM [tblCategory]\n"
+                    + "      WHERE [categoryID] = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, cateId);
+            stm.executeUpdate();
+        } catch (SQLException e) {
+            Logger.getLogger(CategoryDBContext.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
+
+    public void addCate(Category c) {
+        try {
+            String sql = "INSERT INTO [tblCategory]\n"
+                    + "           ([categoryName])\n"
+                    + "     VALUES\n"
+                    + "           (?)";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, c.getCategoryName());
+            stm.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(CategoryDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

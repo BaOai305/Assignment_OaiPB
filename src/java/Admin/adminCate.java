@@ -5,21 +5,22 @@
  */
 package Admin;
 
-import dal.ProductDBContext2;
+import dal.CategoryDBContext;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Admin;
-import model.Product2;
+import model.Category;
 
 /**
  *
  * @author Phamb
  */
-public class adminProduct extends HttpServlet {
+public class adminCate extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,11 +35,11 @@ public class adminProduct extends HttpServlet {
             throws ServletException, IOException {
         Admin admin = (Admin) request.getSession().getAttribute("admin");
         request.setAttribute("admin", admin);
-        //Product list
-        ProductDBContext2 dbPro2 = new ProductDBContext2();
-        ArrayList<Product2> proList = dbPro2.getProducts();
-        request.setAttribute("proList", proList);
-        request.getRequestDispatcher("view/admin/adminProduct.jsp").forward(request, response);
+        // Category list
+        CategoryDBContext dbCate = new CategoryDBContext();
+        ArrayList<Category> cateList = dbCate.getCategorys();
+        request.setAttribute("cateList", cateList);
+        request.getRequestDispatcher("view/admin/adminCate.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

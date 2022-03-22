@@ -17,11 +17,15 @@
                     <a class="nav-link" href="./adminSeller">Seller</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="./adminStudent">Student</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="./adminProduct">Product</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="./adminStudent">Student</a>
+                    <a class="nav-link" href="./adminCate">Category</a>
                 </li>
+
                 <li class="nav-item">
                     <a class="nav-link" href="javascript:void(0)">${requestScope.admin.adminEmail}</a>
                 </li>

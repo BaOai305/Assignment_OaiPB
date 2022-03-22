@@ -76,6 +76,18 @@
         <servlet-name>deleteUserController</servlet-name>
         <servlet-class>Controller.user.deleteUserController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>adminCate</servlet-name>
+        <servlet-class>Admin.adminCate</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>deleteCateController</servlet-name>
+        <servlet-class>Controller.category.deleteCateController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>addCateController</servlet-name>
+        <servlet-class>Controller.category.addCateController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>sellerController</servlet-name>
         <url-pattern>/seller</url-pattern>
@@ -151,6 +163,18 @@
     <servlet-mapping>
         <servlet-name>deleteUserController</servlet-name>
         <url-pattern>/deleteUser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>adminCate</servlet-name>
+        <url-pattern>/adminCate</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>deleteCateController</servlet-name>
+        <url-pattern>/deleteCate</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>addCateController</servlet-name>
+        <url-pattern>/addCate</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

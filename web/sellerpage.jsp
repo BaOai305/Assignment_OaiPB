@@ -34,8 +34,7 @@
                         <tr>
                             <th scope="col">Ảnh</th>
                             <th scope="col">Chi tiết</th>
-                            <th scope="col">Số lượng</th>
-                            <th scope="col">Thêm vào giỏ hàng</th>
+                            <th scope="col" colspan="2"> Thao tác</th>
                         </tr>
                     </thead>
                     <tbody>

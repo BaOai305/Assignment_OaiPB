@@ -22,6 +22,9 @@
                     <a class="nav-link" href="./editUser?userId=${requestScope.currentUser.userID}">${requestScope.currentUser.fullName}</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="./addProduct">Add new product</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="./logout">Logout</a>
                 </li>
             </ul>

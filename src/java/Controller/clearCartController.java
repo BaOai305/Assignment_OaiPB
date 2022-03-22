@@ -19,23 +19,21 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class clearCartController extends HttpServlet {
 
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-                int orderID = Integer.parseInt(request.getParameter("orderID"));
-        
+        int orderID = Integer.parseInt(request.getParameter("orderID"));
+
         OrderDetailDBContext dbOrderDetail = new OrderDetailDBContext();
         dbOrderDetail.clearOrderDetailByOrderID(orderID);
-        
-        response.sendRedirect("./cart.jsp");
+
+        response.sendRedirect("student");
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     }
-
 
     @Override
     public String getServletInfo() {

@@ -1,13 +1,13 @@
 <%-- 
-    Document   : AdminPage
-    Created on : Mar 17, 2022, 10:53:22 AM
+    Document   : adminProduct
+    Created on : Mar 22, 2022, 11:08:11 AM
     Author     : Phamb
 --%>
 
-<%@page import="model.Admin"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+
 
 <!DOCTYPE html>
 <html>
@@ -22,8 +22,7 @@
         }
     </style>
     <body>
-        <h1>Hello ${requestScope.admin.adminEmail}</h1>
-        <h2><a href="./logout">Đăng xuất</a></h2>
+        <jsp:include page="headerAdmin.jsp" />
         <table style="width: 100%">
             <tr>
                 <th>Ảnh sản phẩm </th>

@@ -74,7 +74,7 @@ public class loginController extends HttpServlet {
                     response.addCookie(c_user);
                     response.addCookie(c_pass);
                 }
-                response.sendRedirect("admin");
+                response.sendRedirect("adminProduct");
             } else {
                 request.getSession().setAttribute("loginError", "UserID or password is incorrect");
                 response.sendRedirect("./login.jsp");

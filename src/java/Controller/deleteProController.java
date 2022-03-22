@@ -25,9 +25,6 @@ public class deleteProController extends HttpServlet {
 
         int proId = Integer.parseInt(request.getParameter("proId"));
 
-//        OrderDetailDBContext dbOrderDetal = new OrderDetailDBContext();
-//        dbOrderDetal.deleteOrderDetailByID(proId);
-
         ProductDBContext dbPro = new ProductDBContext();
         dbPro.deleteProduct(proId);
 

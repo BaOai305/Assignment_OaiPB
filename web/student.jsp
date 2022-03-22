@@ -16,24 +16,42 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Food Page</h1>
-        <div class="container"> 
-            <div class="row">
-                <c:forEach items="${requestScope.proList}" var="pro" >
-                    <div class="col-sm-4 p-2">
-                        <form action="addToCart" method="POST">
+        <jsp:include page="view/student/headerStudent.jsp" />
+        <div class="row">
+            <div class="col-6">
+                <table class="table table-borderless">
+                    <thead>
+                        <tr>
+                            <th scope="col">Ảnh</th>
+                            <th scope="col">Chi tiết</th>
+                            <th scope="col">Số lượng</th>
+                            <th scope="col">Thêm vào giỏ hàng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <c:forEach items="${requestScope.proList}" var="pro" >
+                        <form  action="addToCart" method="POST">
                             <input name="productID" value="${pro.getProductID()}" hidden/>
-                            <img src="${pro.getImage()}" width="60%"/></br>  
-                            Tên : ${pro.getProductName()}</br>
-                            Nhà bán : ${pro.getUser_post()}</br>
-                            Giá : ${pro.getPrice()}</br>
-                            Quantity : <input type="number" class="form-control" name="quantity" style="width: 80px"/></br>
-                            <button type="submit" class="btn btn-sm btn-info">Add To Cart</button>
+                            <tr>
+                                <th><img src="${pro.getImage()}" width="60%"/></th>
+                                <td>
+                                    ${pro.getProductName()}<br>
+                                    ${pro.getUser_post()}<br>
+                                    ${pro.getPrice()}
+                                </td>
+                                <td>
+                                    <input type="number" class="form-control" name="quantity" style="width: 80px"/>
+                                </td>
+                                <td>
+                                    <button type="submit" class="btn btn-sm btn-info">Add To Cart</button>
+                                </td>
+                            </tr>
                         </form>
-                    </div>
-                </c:forEach> 
+                    </c:forEach>
+                    </tbody>
+                </table>
             </div>
-        </div>
-
+            <!--        </div>-->
+        <jsp:include page="view/student/cartFooter.jsp" />
     </body>
 </html>

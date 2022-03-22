@@ -1,5 +1,5 @@
 <%-- 
-    Document   : login
+    Document   : register
     Created on : Mar 7, 2022, 4:03:46 PM
     Author     : Phamb
 --%>

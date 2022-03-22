@@ -19,15 +19,14 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class deleteCartController extends HttpServlet {
 
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int detailID = Integer.parseInt(request.getParameter("detailID"));
         OrderDetailDBContext dbOrderDetail = new OrderDetailDBContext();
         dbOrderDetail.deleteOrderDetailByID(detailID);
-        response.sendRedirect("./cart.jsp");    }
-
+        response.sendRedirect("student");
+    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)

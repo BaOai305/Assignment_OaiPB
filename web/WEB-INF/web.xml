@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
-<servlet>
+    <servlet>
         <servlet-name>sellerController</servlet-name>
         <servlet-class>Controller.sellerController</servlet-class>
     </servlet>
@@ -15,10 +15,6 @@
     <servlet>
         <servlet-name>addToCart</servlet-name>
         <servlet-class>Controller.addToCartController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>cartController</servlet-name>
-        <servlet-class>Controller.cartController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>checkOutController</servlet-name>
@@ -49,16 +45,36 @@
         <servlet-class>Controller.updateCartController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>adminController</servlet-name>
-        <servlet-class>Admin.adminController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>deleteProController</servlet-name>
         <servlet-class>Controller.deleteProController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>editProController</servlet-name>
         <servlet-class>Controller.editProController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>sellerManager</servlet-name>
+        <servlet-class>Admin.seller_manager.sellerManager</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>adminSeller</servlet-name>
+        <servlet-class>Admin.adminSeller</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>adminProduct</servlet-name>
+        <servlet-class>Admin.adminProduct</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>adminStudent</servlet-name>
+        <servlet-class>Admin.adminStudent</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>editUserController</servlet-name>
+        <servlet-class>Controller.user.editUserController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>deleteUserController</servlet-name>
+        <servlet-class>Controller.user.deleteUserController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>sellerController</servlet-name>
@@ -75,10 +91,6 @@
     <servlet-mapping>
         <servlet-name>addToCart</servlet-name>
         <url-pattern>/addToCart</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>cartController</servlet-name>
-        <url-pattern>/cart</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>checkOutController</servlet-name>
@@ -109,16 +121,36 @@
         <url-pattern>/updateCart</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>adminController</servlet-name>
-        <url-pattern>/admin</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>deleteProController</servlet-name>
         <url-pattern>/deletePro</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>editProController</servlet-name>
         <url-pattern>/editPro</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>sellerManager</servlet-name>
+        <url-pattern>/sellerManager</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>adminSeller</servlet-name>
+        <url-pattern>/adminSeller</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>adminProduct</servlet-name>
+        <url-pattern>/adminProduct</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>adminStudent</servlet-name>
+        <url-pattern>/adminStudent</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>editUserController</servlet-name>
+        <url-pattern>/editUser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>deleteUserController</servlet-name>
+        <url-pattern>/deleteUser</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

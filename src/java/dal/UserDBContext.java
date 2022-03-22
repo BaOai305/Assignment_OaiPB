@@ -171,4 +171,95 @@ public class UserDBContext extends DBContext {
             Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    public ArrayList<User> getUserByRoleId(int roleId) {
+        ArrayList<User> users = new ArrayList<>();
+        try {
+            String sql = "SELECT [userID]\n"
+                    + "      ,[fullName]\n"
+                    + "      ,[password]\n"
+                    + "      ,[roleID]\n"
+                    + "      ,[address]\n"
+                    + "      ,[birthday]\n"
+                    + "      ,[phone]\n"
+                    + "      ,[mail]\n"
+                    + "      ,[status]\n"
+                    + "  FROM [tblUsers]\n"
+                    + "  WHERE [roleID] = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, roleId);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                User u = new User();
+                u.setUserID(rs.getInt("userID"));
+                u.setFullName(rs.getString("fullName"));
+                u.setPassword(rs.getString("password"));
+                u.setRoleID(rs.getInt("roleID"));
+                u.setAddress(rs.getString("address"));
+                u.setBirthday(rs.getString("birthday"));
+                u.setPhone(rs.getString("phone"));
+                u.setMail(rs.getString("mail"));
+                u.setStatus(rs.getInt("status"));
+                users.add(u);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return users;
+    }
+
+    public void updateUser(User u) {
+        try {
+            String sql = "UPDATE [tblUsers]\n"
+                    + "   SET [fullName] = ?\n"
+                    + "      ,[password] = ?\n"
+                    + "      ,[address] = ?\n"
+                    + "      ,[birthday] = ?\n"
+                    + "      ,[phone] = ?\n"
+                    + "      ,[mail] = ?\n"
+                    + " WHERE [userID] = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(7, u.getUserID());
+            stm.setString(1, u.getFullName());
+            stm.setString(2, u.getPassword());
+            stm.setString(3, u.getAddress());
+            stm.setString(4, u.getBirthday());
+            stm.setString(5, u.getPhone());
+            stm.setString(6, u.getMail());
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void deleteUser(int userId) {
+        try {
+            String sql = "DELETE FROM [tblUsers]\n"
+                    + " WHERE [userID] = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, userId);
+            stm.executeUpdate();
+        } catch (SQLException e) {
+            Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
+
+    public int getUserRole(int userId) {
+        int role = 0;
+        try {
+            String sql = "SELECT [roleID]\n"
+                    + "  FROM [tblUsers]\n"
+                    + "  WHERE [userID] = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, userId);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                role = rs.getInt("roleID");
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return role;
+    }
+
 }

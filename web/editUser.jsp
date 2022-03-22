@@ -1,6 +1,6 @@
 <%-- 
-    Document   : editProduct
-    Created on : Mar 21, 2022, 1:05:06 PM
+    Document   : editUser
+    Created on : Mar 22, 2022, 11:22:47 AM
     Author     : Phamb
 --%>
 
@@ -21,57 +21,54 @@
         }
     </style>
     <body>
-        <form action="editPro" method="POST" >
+        <form action="editUser" method="POST" >
             <table class="center">
                 <tr>
                     <th>Id:</th>
-                    <td>${requestScope.product.productID}
-                        <input type="hidden" name="proId" value="${requestScope.product.productID}" />
+                    <td>${requestScope.user.userID}
+                        <input type="hidden" name="userId" value="${requestScope.user.userID}" />
+                        <input type="hidden" name="userRole" value="${requestScope.user.roleID}" />
                     </td>
                 </tr>
                 <tr>
-                    <th>Tên sản phẩm:</th>
+                    <th>Tên sinh viên:</th>
                     <td>
-                        <input type="text" name="proName" value="${requestScope.product.productName}" />
+                        <input type="text" name="userName" value="${requestScope.user.fullName}" />
                     </td>
                 </tr>
                 <tr>
-                    <th>Link ảnh:</th>
+                    <th>Mật khẩu:</th>
                     <td>
-                        <input type="text" name="proImg" value="${requestScope.product.image}" />
+                        <input type="text" name="userPass" value="${requestScope.user.password}" />
                     </td>
                 </tr>
                 <tr>
-                    <th>Giá:</th>
+                    <th>Địa chỉ:</th>
                     <td>
-                        <input type="text" name="proPrice" value="${requestScope.product.price}" />
+                        <input type="text" name="userAdres" value="${requestScope.user.address}" />
                     </td>
                 </tr>
                 <tr>
-                    <th>Số lượng:</th>
+                    <th>Ngày sinh:</th>
                     <td>
-                        <input type="number" name="proQuantity" value="${requestScope.product.quantity}" />
+                        <input type="date" name="userBirh" value="${requestScope.user.birthday}" />
                     </td>
                 </tr>
                 <tr>
-                    <th>Loại sp:</th>
+                    <th>Số điện thoại:</th>
                     <td>
-                        <select name="proCate" >
-                            <c:forEach items="${requestScope.cateList}" var="cate" >
-                                <option value="${cate.getCategoryID()}">${cate.getCategoryName()}</option>
-                            </c:forEach>
-                        </select>
+                        <input type="text" name="userPhone" value="${requestScope.user.phone}" />
                     </td>
                 </tr>
                 <tr>
-                    <th>Ngày sử dụng:</th>
+                    <th>Mail:</th>
                     <td>
-                        <input type="text" name="proUsing" value="${requestScope.product.getUsingDate()}" />
+                        <input type="text" name="userMail" value="${requestScope.user.mail}" />
                     </td>
                 </tr>
             </table>
             <input style="margin-left: 50%;
                    margin-right: 50%;" type="submit" value="Save" class="center"/>
-        </form>
+        </form>    
     </body>
 </html>

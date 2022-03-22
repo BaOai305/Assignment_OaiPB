@@ -3,26 +3,26 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controller;
+package Admin;
 
-import dal.OrderDBContext;
-import dal.OrderDetailDBContext;
 import dal.ProductDBContext;
+import dal.UserDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import model.OrderDetail;
+import model.Admin;
 import model.Product;
+import model.User;
 
 /**
  *
  * @author Phamb
  */
-public class addToCartController extends HttpServlet {
+public class adminSeller extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,34 +35,14 @@ public class addToCartController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        int productID = Integer.parseInt(request.getParameter("productID"));
-        int quantity = Integer.parseInt(request.getParameter("quantity"));
+        Admin admin = (Admin) request.getSession().getAttribute("admin");
+        request.setAttribute("admin", admin);
+        //Seller list
+        UserDBContext dbUser = new UserDBContext();
+        ArrayList<User> selList = dbUser.getUserByRoleId(2);
+        request.setAttribute("selList", selList);
+        request.getRequestDispatcher("view/admin/adminSeller.jsp").forward(request, response);
 
-        ProductDBContext dbPro = new ProductDBContext();
-        Product p = dbPro.getProductByID(productID);
-        HttpSession session = request.getSession();
-        int currentUserID = 0;
-        try {
-            currentUserID = Integer.parseInt(session.getAttribute("currentUserID").toString());
-        } catch (NumberFormatException e) {
-        }
-        OrderDBContext dbOrder = new OrderDBContext();
-        int cartID = dbOrder.getOrderIDByUserID(currentUserID);
-        if (cartID == 0) {
-            dbOrder.addNewOrder(currentUserID);
-            cartID = dbOrder.getOrderIDByUserID(currentUserID);
-        }
-        OrderDetail detail = new OrderDetail();
-        detail.setOrderID(cartID);
-        detail.setPrice(p.getPrice());
-        detail.setProductID(productID);
-        detail.setQuantity(quantity);
-
-        OrderDetailDBContext dbOrderDetail = new OrderDetailDBContext();
-        dbOrderDetail.addOrderDetail(detail);
-
-        response.sendRedirect("student");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
